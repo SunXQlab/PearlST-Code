@@ -207,7 +207,7 @@ def get_top_important_genes_for_target_emb(adata, file_path, target_index, top_k
     top_important_genes = adata.var_names[top_important_index]
     return top_important_genes, target_emb_importance_sort[:top_k]
 
-top_5_emb = find_variable_embeddings(adata, top_k=2)
+top_5_emb = find_variable_embeddings(adata, top_k=5)
 
 
 def construct_multi_network(top_emb):
@@ -215,7 +215,7 @@ def construct_multi_network(top_emb):
     for emb in top_emb:
         importance_df, target_index = compute_feature_importance(emb, outNameGene)
         plt.figure(figsize=(10, 8))
-        sns.barplot(x='features', y='importance', data=importance_df[:2])
+        sns.barplot(x='features', y='importance', data=importance_df[:10])
         plt.xticks(rotation=30)
         plt.xlabel("LR-scores")
         plt.ylabel("Importances")
@@ -224,8 +224,8 @@ def construct_multi_network(top_emb):
         # plt.savefig('feature importance about embedding_{}.jpg'.format(target_index), dpi=300)
         top_important_genes, top_importances = get_top_important_genes_for_target_emb(adata,
                                                             file_path='DLPFC dataset/Human breast cancer/model.pt',
-                                                             target_index=target_index, top_k=3)
-        net[emb] = {"LR_pairs": importance_df[:2], "target_genes": top_important_genes, "importance": top_importances}
+                                                             target_index=target_index, top_k=100)
+        net[emb] = {"LR_pairs": importance_df[:10], "target_genes": top_important_genes, "importance": top_importances}
     return net
 
 
@@ -271,7 +271,7 @@ plt.ylabel('Term Name')
 plt.show()
 """
 
-'''
+
 # compute LR scores and plot interactions among multi-regions
 LR_pairs = find_all_LR_pair_expressed(adata, Ligand, Receptor)
 region_list = ['IDC_4', 'IDC_2', 'IDC_5', 'IDC_6', 'IDC_8', 'DCIS/LCIS_4', 'DCIS/LCIS_5', 'Tumor_edge_1', 'Tumor_edge_2']
@@ -292,4 +292,4 @@ weight.to_csv('C:/Users/haiyu/Desktop/CCI/weight_new.csv')
 for x in region_list:
     adata_x = adata_pearlST[adata_pearlST.obs['annotation'] == x]
     print(x, "The number of cells:", len(adata_x))
-'''
+
