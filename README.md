@@ -11,5 +11,5 @@ For example, the WARGA folder holds PearlST's experimental data on all test data
 The folder named after the figure contains the code to reproduce the results of the experiment.   
 
 ## Contact  
-If you encounter any problems, please contact [sunxq6@mail.sysu.edu.cn] (sunxq6@mail.sysu.edu.cn).
+If you encounter any problems, please contact (sunxq6@mail.sysu.edu.cn).
 
